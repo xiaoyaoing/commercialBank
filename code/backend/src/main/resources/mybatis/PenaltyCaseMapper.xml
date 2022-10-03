@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.PenaltyCaseMapper">
+
+    <select id="queryAll" resultMap="CaseMap">
+        select * from Penalties
+    </select>
+
+    <select id="queryById" resultMap="CaseMap">
+        select * from Penalties where id=#{penaltyId}
+    </select>
+
+    <insert id="insertPenalty" parameterType="com.example.demo.domain.PenaltyCaseDetail"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into Penalties(decisionNumber,punishedPartyName,agencyName,agencyType,province,penaltyCause,penaltyLaw,penaltyBasis,penaltyDecision,penaltyDate,penaltyAmount,penaltyType,penaltyName)
+        values (#{decisionNumber},#{punishedPartyName},#{agencyName},#{agencyType},#{province,typeHandler=ProvinceTypeHandler},#{penaltyCause},#{penaltyLaw},#{penaltyBasis},#{penaltyDecision},#{penaltyDate},#{penaltyAmount},#{penaltyType},#{penaltyName})
+    </insert>
+
+    <delete id="delePenalty">
+        delete from Penalties where id=#{penaltyId}
+    </delete>
+
+    <update id="updatePenalty">
+        update Penalties set decisionNumber=#{decisionNumber},punishedPartyName=#{punishedPartyName},agencyName=#{agencyName},agencyType=#{agencyType},
+                             province=#{province,typeHandler=ProvinceTypeHandler},penaltyCause=#{penaltyCause},penaltyLaw=#{penaltyLaw},penaltyBasis=#{penaltyBasis},penaltyDecision=#{penaltyDecision},
+                             penaltyDate=#{penaltyDate},penaltyAmount=#{penaltyAmount},penaltyType=#{penaltyType},penaltyName=#{penaltyName} where id=#{id}
+    </update>
+
+    <select id="queryNumByRegion" resultMap="ReturnMap">
+        select count(*) as num2,province from Penalties where penaltyDate between #{start_Date} and #{end_Date} group by province order by num2 desc
+    </select>
+
+    <select id="NumForMonth" resultMap="ReturnMap">
+        select DATE_FORMAT(penaltyDate,'%Y-%m')as time1,count(*) as num2 from Penalties where province=#{province} and penaltyDate between #{start_Date} and #{end_Date}
+        group by DATE_FORMAT(penaltyDate,'%Y-%m') order by DATE_FORMAT(penaltyDate,'%Y-%m') asc
+    </select>
+
+
+    <select id="queryAmoByRegion" resultMap="ReturnMap">
+        select sum(penaltyAmount) as num1,province from Penalties where penaltyDate between #{start_Date} and #{end_Date} group by province order by num1 desc
+    </select>
+
+    <select id="queryAmoNumByRegion" resultMap="ReturnMap">
+        select sum(penaltyAmount) as num1,count(*) as num2,province from Penalties where penaltyDate between #{start_Date} and #{end_Date} group by province order by num1 desc
+    </select>
+
+    <select id="queryAmoByAgency" resultMap="ReturnMap">
+        select sum(penaltyAmount) as num1,penaltyType from Penalties where penaltyDate between #{start_Date} and #{end_Date} group by penaltyType order by num1 desc
+    </select>
+
+    <select id="AmoForMonth" resultMap="ReturnMap">
+        select DATE_FORMAT(penaltyDate,'%Y-%m')as time1,sum(penaltyAmount) as num1 from Penalties where province=#{province} and penaltyDate between #{start_Date} and #{end_Date}
+        group by DATE_FORMAT(penaltyDate,'%Y-%m') order by DATE_FORMAT(penaltyDate,'%Y-%m') asc
+    </select>
+
+    <select id="search" resultMap="CaseMap">
+        select * from Penalties where instr(province, #{province}) > 0 and instr (decisionNumber,#{decisionNumber})>0 and instr(punishedPartyName,#{punishedPartyName})>0
+        and instr(penaltyLaw,#{penaltyLaw}) >0 and instr(penaltyBasis,#{penaltyBasis}) >0 and instr(penaltyDate,#{penaltyDate}) >0
+    </select>
+    <resultMap id="CaseMap" type="com.example.demo.domain.PenaltyCaseDetail">
+        <id column="id" property="id"></id>
+        <result column="decisionNumber" property="decisionNumber"></result>
+        <result column="punishedPartyName" property="punishedPartyName"></result>
+        <result column="agencyName" property="agencyName"></result>
+        <result column="agencyType" property="agencyType"></result>
+        <result column="province" property="province" typeHandler="ProvinceTypeHandler" jdbcType="VARCHAR"></result>
+        <result column="penaltyCause" property="penaltyCause"></result>
+        <result column="penaltyLaw" property="penaltyLaw"></result>
+        <result column="penaltyBasis" property="penaltyBasis"></result>
+        <result column="penaltyDecision" property="penaltyDecision"></result>
+        <result column="penaltyDate" property="penaltyDate"></result>
+        <result column="penaltyAmount" property="penaltyAmount"></result>
+        <result column="penaltyType" property="penaltyType"></result>
+        <result column="penaltyName" property="penaltyName"></result>
+    </resultMap>
+
+    <resultMap id="ReturnMap" type="com.example.demo.domain.ReturnInfo">
+        <result column="num2" property="sum"></result>
+        <result column="province" property="province" typeHandler="ProvinceTypeHandler" jdbcType="VARCHAR"></result>
+        <result column="num1" property="amount"></result>
+        <result column="penaltyType" property="penaltyType"></result>
+        <result column="time1" property="penaltyDate"></result>
+    </resultMap>
+</mapper>
+
+<!--decisionNumber,punishedPartyName,agencyName,agencyType,province,penaltyCause,penaltyLaw,penaltyBasis,penaltyDecision,penaltyDate,penaltyAmount,penaltyType-->

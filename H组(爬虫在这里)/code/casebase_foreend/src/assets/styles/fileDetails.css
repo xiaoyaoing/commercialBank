@@ -1,0 +1,46 @@
+
+.details-bg {
+    background-color: #fafafa;
+    overflow-y: auto;
+    justify-content: center;
+}
+
+.details-table {
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.details-table th, td {
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    height: 50px;
+}
+
+.paper {
+    margin: 2rem;
+    padding: 4rem 3rem;
+    width: 50%;
+    min-width: 550px;
+    height: fit-content;
+    min-height: 60rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.paper-title {
+    line-height: 1.75rem;
+    font-size: 1.75rem;
+    font-weight: 800;
+    text-align: center;
+    padding: 5px;
+}
+
+.paper-body {
+    font-size: 0.875rem;
+    line-height: 1.3rem;
+}

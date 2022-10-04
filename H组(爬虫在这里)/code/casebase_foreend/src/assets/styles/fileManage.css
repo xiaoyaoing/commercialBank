@@ -1,0 +1,121 @@
+.file-manage-wrapper {
+    height: fit-content;
+    min-height: 100%;
+    width: 100%;
+    min-width: 50rem;
+}
+
+.top-block {
+    width: 90%;
+    height: 8rem;
+    margin: auto;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.bottom-block {
+    height: calc(100% - 8rem);
+}
+
+.bottom-modal {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.list {
+    height: auto;
+    max-height: 100%;
+    width: 90%;
+    margin: auto;
+}
+
+.list-header {
+    position: relative;
+    line-height: 14px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.list-item {
+    padding: 12px 24px;
+}
+
+.list-item:hover {
+    background-color: #e6f7ff;
+}
+
+.list-avatar {
+
+}
+
+.btn {
+    margin: 0 12px;
+}
+
+.title-wrapper {
+    display: flex;
+    height: 5rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 12px;
+}
+
+.title {
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 600;
+}
+
+.header-wrapper {
+    position: relative;
+    height: calc(100% - 5rem);
+    padding: 0 24px;
+}
+
+.header-checks {
+    display: inline-block;
+    width: 60%;
+}
+
+.header-search {
+    position: absolute;
+    right: 0;
+    margin: 0 24px;
+    width: 40%;
+}
+
+.selector {
+    width: 7rem;
+}
+
+.selector > div {
+    /* 勿滥用强制修改*/
+    background-color: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.selector > div > div {
+    margin-left: 0 !important;
+}
+
+.table-pagination {
+    width: 100%;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.state-icon-wrapper {
+    cursor: pointer;
+}
+
+.state-icon-wrapper:hover {
+    color:#409EFF;
+}
+
+.state-icon-style {
+    pointer-events: none;
+}
+

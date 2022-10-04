@@ -1,0 +1,64 @@
+package com.example.caseBase.service.Impl;
+
+import com.example.caseBase.DAO.DocumentRepository;
+import com.example.caseBase.PO.Doc;
+import com.example.caseBase.PO.PageInfo;
+import com.example.caseBase.dto.queryBody;
+import com.example.caseBase.service.DatabaseBasicService;
+import com.example.caseBase.util.ESUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class DatabaseBasicServiceImpl implements DatabaseBasicService {
+    @Resource
+    DocumentRepository documentRepository;
+    @Autowired
+    ESUtil esUtil;
+
+    @Override
+    public Doc findDocByDocId(Long docId) {
+       Doc doc= documentRepository.findDocByDocId(docId);
+       return doc;
+    }
+
+    @Override
+    public void deleteDocByDocId(Long docId) {
+        esUtil.deleteDocument(docId,"document");
+        documentRepository.deleteDocByDocId(docId);
+    }
+
+    @Override
+    public PageInfo<Doc> query(queryBody body) {
+        System.out.println(body.ToString());
+        List<Doc> docs=new ArrayList<>();
+        try{
+            Map<Long,String> docIdList=esUtil.queryDocument(body);
+            for(Long id:docIdList.keySet()){
+                Doc doc=documentRepository.findDocByDocId(id);
+                if(docIdList.get(id).length()<10){
+                    doc.setHighLightedContent((doc.getContent().length()>150)?doc.getContent().substring(0,140):doc.getContent());
+                }
+                else{
+                    doc.setHighLightedContent(docIdList.get(id));
+                }
+                docs.add(doc);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return new PageInfo<>(docs.size(),docs);
+    }
+
+    @Override
+    public void saveDoc(Doc doc) {
+        //esUtil.addDocument(doc,"document");
+        documentRepository.saveDoc(doc);
+    }
+}

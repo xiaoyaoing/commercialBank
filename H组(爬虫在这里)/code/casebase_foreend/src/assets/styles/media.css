@@ -1,0 +1,23 @@
+@media screen and (min-width: 1200px) {
+    .drawer-width {
+        width: 20rem;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+    .drawer-width {
+        width: 20rem;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+    .drawer-width {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .drawer-width {
+        width: 80%;
+    }
+}

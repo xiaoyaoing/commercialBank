@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://basecase.example.com/webservice/DocumentService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="documentService" targetNamespace="http://basecase.example.com/webservice/DocumentService">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://basecase.example.com/webservice/DocumentService" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://basecase.example.com/webservice/DocumentService" version="1.0">
+            <xs:element name="Import" type="tns:Import"/>
+            <xs:element name="ImportResponse" type="tns:ImportResponse"/>
+            <xs:element name="buildOneDoc" type="tns:buildOneDoc"/>
+            <xs:element name="buildOneDocResponse" type="tns:buildOneDocResponse"/>
+            <xs:element name="deleteById" type="tns:deleteById"/>
+            <xs:element name="deleteByIdResponse" type="tns:deleteByIdResponse"/>
+            <xs:element name="findDocById" type="tns:findDocById"/>
+            <xs:element name="findDocByIdResponse" type="tns:findDocByIdResponse"/>
+            <xs:element name="queryDocs" type="tns:queryDocs"/>
+            <xs:element name="queryDocsResponse" type="tns:queryDocsResponse"/>
+            <xs:element name="releaseDocs" type="tns:releaseDocs"/>
+            <xs:element name="releaseDocsResponse" type="tns:releaseDocsResponse"/>
+            <xs:element name="saveOneDoc" type="tns:saveOneDoc"/>
+            <xs:element name="saveOneDocResponse" type="tns:saveOneDocResponse"/>
+            <xs:element name="updateOneDoc" type="tns:updateOneDoc"/>
+            <xs:element name="updateOneDocResponse" type="tns:updateOneDocResponse"/>
+            <xs:complexType name="queryDocs">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="queryBody" type="tns:queryBody"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="queryBody">
+                <xs:sequence>
+                    <xs:element name="pageNum" type="xs:int"/>
+                    <xs:element name="currentPage" type="xs:int"/>
+                    <xs:element name="currentPageSize" type="xs:int"/>
+                    <xs:element minOccurs="0" name="filter" type="tns:queryFilter"/>
+                    <xs:element minOccurs="0" name="sorter" type="tns:querySorter"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="queryFilter">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="date" type="tns:date"/>
+                    <xs:element minOccurs="0" name="tag" type="xs:string"/>
+                    <xs:element minOccurs="0" name="content" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="date">
+                <xs:sequence>
+                    <xs:element name="startDate" type="xs:long"/>
+                    <xs:element name="endDate" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="querySorter">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="date" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="queryDocsResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="doc">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="basis" type="xs:string"/>
+                    <xs:element minOccurs="0" name="cause" type="xs:string"/>
+                    <xs:element minOccurs="0" name="content" type="xs:string"/>
+                    <xs:element minOccurs="0" name="date" type="xs:string"/>
+                    <xs:element minOccurs="0" name="decision" type="xs:string"/>
+                    <xs:element minOccurs="0" name="docId" type="xs:long"/>
+                    <xs:element minOccurs="0" name="docNum" type="xs:string"/>
+                    <xs:element minOccurs="0" name="highLightedContent" type="xs:string"/>
+                    <xs:element minOccurs="0" name="html" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="litigants" nillable="true" type="tns:litigant"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="organ" type="xs:string"/>
+                    <xs:element minOccurs="0" name="publishDate" type="xs:dateTime"/>
+                    <xs:element name="state" type="xs:int"/>
+                    <xs:element name="type" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="litigant">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="chargeMan" type="xs:string"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="unit" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="releaseDocs">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="releaseDocList" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="releaseDocsResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="Import">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="list" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ImportResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="findDocById">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="docId" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="findDocByIdResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="updateOneDoc">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="doc" type="tns:docVO"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="docVO">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="basis" type="xs:string"/>
+                    <xs:element minOccurs="0" name="cause" type="xs:string"/>
+                    <xs:element minOccurs="0" name="content" type="xs:string"/>
+                    <xs:element minOccurs="0" name="date" type="xs:string"/>
+                    <xs:element minOccurs="0" name="decision" type="xs:string"/>
+                    <xs:element minOccurs="0" name="docId" type="xs:long"/>
+                    <xs:element minOccurs="0" name="docNum" type="xs:string"/>
+                    <xs:element minOccurs="0" name="highLightedContent" type="xs:string"/>
+                    <xs:element minOccurs="0" name="html" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="litigants" nillable="true" type="tns:litigant"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="organ" type="xs:string"/>
+                    <xs:element name="state" type="xs:int"/>
+                    <xs:element name="type" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="updateOneDocResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="buildOneDoc">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="docVO" type="tns:docVO"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="buildOneDocResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="deleteById">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="docId" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="deleteByIdResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="saveOneDoc">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="docPO" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="saveOneDocResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="IOException" type="tns:IOException"/>
+            <xs:complexType name="IOException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="updateOneDocResponse">
+        <wsdl:part element="tns:updateOneDocResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="buildOneDocResponse">
+        <wsdl:part element="tns:buildOneDocResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="queryDocs">
+        <wsdl:part element="tns:queryDocs" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="Import">
+        <wsdl:part element="tns:Import" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findDocByIdResponse">
+        <wsdl:part element="tns:findDocByIdResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="releaseDocsResponse">
+        <wsdl:part element="tns:releaseDocsResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="IOException">
+        <wsdl:part element="tns:IOException" name="IOException"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="buildOneDoc">
+        <wsdl:part element="tns:buildOneDoc" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveOneDocResponse">
+        <wsdl:part element="tns:saveOneDocResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ImportResponse">
+        <wsdl:part element="tns:ImportResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="releaseDocs">
+        <wsdl:part element="tns:releaseDocs" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="queryDocsResponse">
+        <wsdl:part element="tns:queryDocsResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findDocById">
+        <wsdl:part element="tns:findDocById" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteByIdResponse">
+        <wsdl:part element="tns:deleteByIdResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="updateOneDoc">
+        <wsdl:part element="tns:updateOneDoc" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteById">
+        <wsdl:part element="tns:deleteById" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveOneDoc">
+        <wsdl:part element="tns:saveOneDoc" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="documentPortType">
+        <wsdl:operation name="queryDocs">
+            <wsdl:input message="tns:queryDocs" name="queryDocs"> </wsdl:input>
+            <wsdl:output message="tns:queryDocsResponse" name="queryDocsResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="releaseDocs">
+            <wsdl:input message="tns:releaseDocs" name="releaseDocs"> </wsdl:input>
+            <wsdl:output message="tns:releaseDocsResponse" name="releaseDocsResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Import">
+            <wsdl:input message="tns:Import" name="Import"> </wsdl:input>
+            <wsdl:output message="tns:ImportResponse" name="ImportResponse"> </wsdl:output>
+            <wsdl:fault message="tns:IOException" name="IOException"> </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findDocById">
+            <wsdl:input message="tns:findDocById" name="findDocById"> </wsdl:input>
+            <wsdl:output message="tns:findDocByIdResponse" name="findDocByIdResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateOneDoc">
+            <wsdl:input message="tns:updateOneDoc" name="updateOneDoc"> </wsdl:input>
+            <wsdl:output message="tns:updateOneDocResponse" name="updateOneDocResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="buildOneDoc">
+            <wsdl:input message="tns:buildOneDoc" name="buildOneDoc"> </wsdl:input>
+            <wsdl:output message="tns:buildOneDocResponse" name="buildOneDocResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteById">
+            <wsdl:input message="tns:deleteById" name="deleteById"> </wsdl:input>
+            <wsdl:output message="tns:deleteByIdResponse" name="deleteByIdResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveOneDoc">
+            <wsdl:input message="tns:saveOneDoc" name="saveOneDoc"> </wsdl:input>
+            <wsdl:output message="tns:saveOneDocResponse" name="saveOneDocResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="documentServiceSoapBinding" type="tns:documentPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="queryDocs">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="queryDocs">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="queryDocsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="releaseDocs">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="releaseDocs">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="releaseDocsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Import">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="Import">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ImportResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="IOException">
+                <soap:fault name="IOException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="findDocById">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="findDocById">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findDocByIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="updateOneDoc">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="updateOneDoc">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="updateOneDocResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="buildOneDoc">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="buildOneDoc">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="buildOneDocResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteById">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="deleteById">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteByIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="saveOneDoc">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="saveOneDoc">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="saveOneDocResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="documentService">
+        <wsdl:port binding="tns:documentServiceSoapBinding" name="documentPortName">
+            <soap:address location="http://localhost:8082/webservice/document"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
+

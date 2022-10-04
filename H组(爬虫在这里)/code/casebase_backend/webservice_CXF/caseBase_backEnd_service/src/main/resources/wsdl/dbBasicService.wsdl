@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://basecase.example.com/dataservice/DatabaseBasicService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="DatabaseBasicService" targetNamespace="http://basecase.example.com/dataservice/DatabaseBasicService">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://basecase.example.com/dataservice/DatabaseBasicService" elementFormDefault="unqualified" targetNamespace="http://basecase.example.com/dataservice/DatabaseBasicService" version="1.0">
+            <xs:element name="deleteDocByDocId" type="tns:deleteDocByDocId"/>
+            <xs:element name="deleteDocByDocIdResponse" type="tns:deleteDocByDocIdResponse"/>
+            <xs:element name="findDocByDocId" type="tns:findDocByDocId"/>
+            <xs:element name="findDocByDocIdResponse" type="tns:findDocByDocIdResponse"/>
+            <xs:element name="queryPage" type="tns:queryPage"/>
+            <xs:element name="queryPageResponse" type="tns:queryPageResponse"/>
+            <xs:element name="saveDoc" type="tns:saveDoc"/>
+            <xs:element name="saveDocResponse" type="tns:saveDocResponse"/>
+            <xs:complexType name="saveDoc">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="doc" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="doc">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="basis" type="xs:string"/>
+                    <xs:element minOccurs="0" name="cause" type="xs:string"/>
+                    <xs:element minOccurs="0" name="content" type="xs:string"/>
+                    <xs:element minOccurs="0" name="date" type="xs:string"/>
+                    <xs:element minOccurs="0" name="decision" type="xs:string"/>
+                    <xs:element minOccurs="0" name="docId" type="xs:long"/>
+                    <xs:element minOccurs="0" name="docNum" type="xs:string"/>
+                    <xs:element minOccurs="0" name="highLightedContent" type="xs:string"/>
+                    <xs:element minOccurs="0" name="html" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="litigants" nillable="true" type="tns:litigant"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="organ" type="xs:string"/>
+                    <xs:element minOccurs="0" name="publishDate" type="xs:dateTime"/>
+                    <xs:element name="state" type="xs:int"/>
+                    <xs:element name="type" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="litigant">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="chargeMan" type="xs:string"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="unit" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="saveDocResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="deleteDocByDocId">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="docId" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="deleteDocByDocIdResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="findDocByDocId">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="docId" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="findDocByDocIdResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:doc"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="queryPage">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:queryBody"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="queryBody">
+                <xs:sequence>
+                    <xs:element name="pageNum" type="xs:int"/>
+                    <xs:element name="currentPage" type="xs:int"/>
+                    <xs:element name="currentPageSize" type="xs:int"/>
+                    <xs:element minOccurs="0" name="filter" type="tns:queryFilter"/>
+                    <xs:element minOccurs="0" name="sorter" type="tns:querySorter"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="queryFilter">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="date" type="tns:date"/>
+                    <xs:element minOccurs="0" name="tag" type="xs:string"/>
+                    <xs:element minOccurs="0" name="content" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="date">
+                <xs:sequence>
+                    <xs:element name="startDate" type="xs:long"/>
+                    <xs:element name="endDate" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="querySorter">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="date" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="queryPageResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:pageInfo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="pageInfo">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="records" nillable="true" type="xs:anyType"/>
+                    <xs:element name="total" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="saveDoc">
+        <wsdl:part element="tns:saveDoc" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveDocResponse">
+        <wsdl:part element="tns:saveDocResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="queryPageResponse">
+        <wsdl:part element="tns:queryPageResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteDocByDocIdResponse">
+        <wsdl:part element="tns:deleteDocByDocIdResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findDocByDocIdResponse">
+        <wsdl:part element="tns:findDocByDocIdResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteDocByDocId">
+        <wsdl:part element="tns:deleteDocByDocId" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="findDocByDocId">
+        <wsdl:part element="tns:findDocByDocId" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="queryPage">
+        <wsdl:part element="tns:queryPage" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="DatabaseBasicServicePort">
+        <wsdl:operation name="saveDoc">
+            <wsdl:input message="tns:saveDoc" name="saveDoc"> </wsdl:input>
+            <wsdl:output message="tns:saveDocResponse" name="saveDocResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteDocByDocId">
+            <wsdl:input message="tns:deleteDocByDocId" name="deleteDocByDocId"> </wsdl:input>
+            <wsdl:output message="tns:deleteDocByDocIdResponse" name="deleteDocByDocIdResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findDocByDocId">
+            <wsdl:input message="tns:findDocByDocId" name="findDocByDocId"> </wsdl:input>
+            <wsdl:output message="tns:findDocByDocIdResponse" name="findDocByDocIdResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryPage">
+            <wsdl:input message="tns:queryPage" name="queryPage"> </wsdl:input>
+            <wsdl:output message="tns:queryPageResponse" name="queryPageResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DatabaseBasicServiceSoapBinding" type="tns:DatabaseBasicServicePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="saveDoc">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="saveDoc">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="saveDocResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteDocByDocId">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="deleteDocByDocId">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteDocByDocIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="findDocByDocId">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="findDocByDocId">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="findDocByDocIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="queryPage">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="queryPage">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="queryPageResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DatabaseBasicService">
+        <wsdl:port binding="tns:DatabaseBasicServiceSoapBinding" name="DatabaseBasicServicePort">
+            <soap:address location="http://localhost:8088/dataservice/DatabaseBasicService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

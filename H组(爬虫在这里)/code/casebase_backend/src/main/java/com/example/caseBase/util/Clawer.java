@@ -40,6 +40,9 @@ public class Clawer {
     @Autowired
     private DatabaseBasicService databaseBasicService;
 
+    @Autowired
+    private ESUtil esUtil;
+
     private List<String> nullStringList=new ArrayList<String>(){{
         add("-");
         add("/");
@@ -256,8 +259,8 @@ public class Clawer {
             }
         }
         System.out.println(doc.getLitigantText());
-        databaseBasicService.saveDoc(doc);
-
+//        databaseBasicService.saveDoc(doc);
+        esUtil.addDocument(doc, "document");
     }
     public void logDocId(Long id) throws IOException {
         File file=new File("logs/clawerLog");

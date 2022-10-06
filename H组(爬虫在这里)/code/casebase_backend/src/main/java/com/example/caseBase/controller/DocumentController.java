@@ -44,6 +44,7 @@ public class DocumentController {
         if ( doc != null) {
             System.out.println("----------------------创建成功--------------------");
             System.out.println(doc.getDocId());
+            doc = documentService.buildOneDoc(docVO);
             return ResponseVO.buildSuccess(doc.getDocId().toString());
         }
         else {

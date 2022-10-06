@@ -73,7 +73,12 @@ public class Clawer {
         URLConnection conn = url.openConnection();
         //读取返回结果集
         conn.setRequestProperty("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        } catch (FileNotFoundException e) {
+            return null;
+        }
         String line;
         while ((line = reader.readLine()) != null){
             document.append(line);
@@ -135,6 +140,9 @@ public class Clawer {
         doc.setState(1);
         String htmlUrl="http://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId="+docId+".json";
         HashMap<String,JSONObject> html=sendGet(htmlUrl);
+        if (html == null) {
+            return;
+        }
         JSONObject data= html.get("data");
         String docClob=(String) data.get("docClob");
         Document document=Jsoup.parse(docClob);
